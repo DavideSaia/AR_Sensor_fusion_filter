@@ -160,8 +160,8 @@ barrier(scenario, barrierCenters, ...
 % Add the ego vehicle
 egoVehicle = vehicle(scenario, ...
     'ClassID', 1, ...
-    'Length', 2, ...
-    'Width', 2, ...
+    'Length', 4.5, ...
+    'Width', 1.8, ...
     'Height', 1.441, ...
     'Position', [-0.2 55.5 0], ...
     'RearOverhang', 1, ...
@@ -173,8 +173,8 @@ egoVehicle = vehicle(scenario, ...
 % Add the est vehicle
 estVehicle = vehicle(scenario, ...
     'ClassID', 1, ...
-    'Length', 2, ...
-    'Width', 2, ...
+    'Length', 4.5, ...
+    'Width', 1.8, ...
     'Height', 1.441, ...
     'Position', [-4.71305572446913 39.6096170727935 0], ...
     'Mesh', driving.scenario.carMesh, ...
@@ -184,7 +184,6 @@ estVehicle = vehicle(scenario, ...
 
 %Generate the ground Truth trajectory 
 sampleRate = 1/scenario.SampleTime;
-speed = 2;%m/s
 waypoints = [-0.2 55.5 0;
     8.8 56.4 0;
     15.9 56.3 0;
@@ -207,30 +206,61 @@ waypoints = [-0.2 55.5 0;
     12.1 -9.6 0;
     6.4 -9.8 0;
     -0.4 -9.8 0];
-velocity = [speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0;
-         speed 0 0];
-jerk = 0.4;
 
+%Speed for first methods 
+speeds = 2;%m/s
+velocity = [speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0;
+         speeds 0 0];
+jerk = 0.4;%m/s^3
 traj = waypointTrajectory(Waypoints=waypoints,SampleRate=sampleRate, ...
                           Velocities=velocity,ReferenceFrame="ENU", ...
                           JerkLimit=jerk);
+
+
+
+%Velocity vector for second method
+velocity = 5; %m/s
+speed = [velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity 
+         velocity ];
+
+smoothTrajectory(egoVehicle,waypoints,speed,"Jerk",jerk)

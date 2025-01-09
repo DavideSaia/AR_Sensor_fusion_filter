@@ -1,5 +1,5 @@
-function [paramsVO,imu] = createSensors(scenario)
-% createSensors Returns all sensor objects to generate detections
+function [paramsVO,imu, mountingLocationIMU, mountingAnglesIMU] = createSensors(scenario)
+% createSensors Returns all sensor objects to make odometry
 
 
 sampleRate = 1/scenario.SampleTime;
@@ -28,6 +28,11 @@ imu.Gyroscope.MeasurementRange = deg2rad(250); % rad/s
 imu.Gyroscope.Resolution = deg2rad(0.0625); % rad/s/LSB
 imu.Gyroscope.NoiseDensity = deg2rad(0.0573); % (rad/s)/sqrt(Hz)
 imu.Gyroscope.ConstantBias = deg2rad(2); % rad/s
+
+
+%Mounting IMU sensors
+mountingLocationIMU = [1.5 0 0];
+mountingAnglesIMU = [0 0 0];
 
 
 %numSensors = 2;

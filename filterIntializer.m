@@ -1,12 +1,18 @@
 %Function for filter start configuration 
 
-function filterIntializer(filt,traj)
+function filterIntializer(filt,traj,flag)
 
 %Retrieve the initial position,orientation, and velocity from the 
 %trajectory object and reset the internal states 
 
-[pos, orient, vel] = traj();
-reset(traj);
+if flag == '0'
+    [pos, orient, vel] = traj();
+    reset(traj);
+else
+    pos = traj.Position;
+    orient = quaternion(fliplr(traj.Orientation), 'eulerd', 'ZYX', 'frame');
+    vel = traj.Velocity;
+end
 
 %Set the initial state values 
 filt.State(1:4) = compact(orient(1)).';

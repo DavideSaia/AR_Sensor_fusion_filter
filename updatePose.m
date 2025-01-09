@@ -1,5 +1,7 @@
 function updatePose(veh, pos, vel, orient)
 
+pos(:,3) = 0; %Floor Level
+
 veh.Position = pos;
 veh.Velocity = vel;
 rpy = eulerd(orient, 'ZYX', 'frame');
