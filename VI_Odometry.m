@@ -97,7 +97,9 @@ while advance(scenario)
     [posIMU,orientIMU,velIMU,accIMU,angvelIMU] = transformMotion( ...
         mountingLocationIMU,orientVeh2IMU, ...
         pos(i,:),orient(i),vel(i,:),acc(i,:),angvel(i,:));
-
+    
+    % Generate accelerometer and gyroscope measurements from the 
+    % ground truth trajectory values.
     [accel, gyro] = imu(accIMU,angvelIMU,orientIMU);
 
     %Predict the filter state forward one time step based on the
